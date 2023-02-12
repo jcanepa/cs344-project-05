@@ -21,13 +21,13 @@ void llist_insert_head(struct node **head, struct node *n)
 
 void llist_print(struct node *head)
 {
-    if (head->next == NULL)
+    if (head == NULL)
     {
         printf("[empty]\n");
         return;
     }
 
-    struct node *node = head->next;
+    struct node *node = head;
     while (node != NULL)
     {
         printf("%d -> ", node->value);
@@ -58,43 +58,41 @@ struct node *node_alloc(int value)
 
 int main(int argc, char const *argv[])
 {
-    struct node *head = node_alloc(0);
+    struct node *head = NULL;
 
-    struct node *n = node_alloc(10);
-    llist_insert_head(&head, n);
-
-    struct node *f = node_alloc(30);
-    llist_insert_head(&head, f);
-
-    llist_print(head);
-
-    // command line parser
+    // parse command line
     for (const char **arg = argv + 1; *arg != argv[argc]; arg++)
     {
-        // if (strcmp(*arg, "ih") == 0)
-        // {
-        //     printf("%s inserts %s at the head of the list\n", *arg, *(arg + 1));
-        //     // struct node *n = node_alloc(*(arg + 1));
-        //     // llist_insert_head(&head, n);
-        // }
-        // else if (strcmp(*arg, "it") == 0)
-        // {
-        //     printf("%s inserts %s to tail of the list\n", *arg, *(arg + 1));
-        // }
-        // else if (strcmp(*arg, "dh") == 0)
-        // {
-        //     printf("%s deletes head node\n", *arg);
-        // }
-        // else if (strcmp(*arg, "f") == 0)
-        // {
-        //     printf("%s frees the list\n", *arg);
-        //     // node_free()
-        // }
-        // else if (strcmp(*arg, "p") == 0)
-        // {
-        //     printf("%s prints the list\n", *arg);
-        //     llist_print(head);
-        // }
+        if (strcmp(*arg, "ih") == 0)
+        {
+            // insert the next number on the command line at the head of the list
+            int value = atoi(*(arg + 1));
+            llist_insert_head(&head, node_alloc(value));
+        }
+        else if (strcmp(*arg, "it") == 0)
+        {
+            // insert the next number on the command line at the tail of the list
+            printf("%s inserts %s to tail of the list (TODO)\n", *arg, *(arg + 1));
+        }
+        else if (strcmp(*arg, "dh") == 0)
+        {
+            // delete the node from the head of the list; does nothing if the list is empty
+            if (head == NULL)
+                continue;
+            printf("%s deletes head node (TODO)\n", *arg);
+        }
+        else if (strcmp(*arg, "f") == 0)
+        {
+            // free the entire list
+            printf("%s frees the list (TODO)\n", *arg);
+            // node_free()
+        }
+        else if (strcmp(*arg, "p") == 0)
+        {
+            // print the list to standard output
+            // printf("%s prints the list\n", *arg);
+            llist_print(head);
+        }
     }
 
     return 0;
