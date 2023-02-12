@@ -1,4 +1,6 @@
 #include "llist.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 void llist_insert_head(struct node **head, struct node *n)
 {
@@ -7,7 +9,7 @@ void llist_insert_head(struct node **head, struct node *n)
 
 struct node *llist_delete_head(struct node **head)
 {
-    return;
+    return NULL;
 }
 
 void llist_insert_tail(struct node **head, struct node *n)
@@ -17,7 +19,7 @@ void llist_insert_tail(struct node **head, struct node *n)
 
 void llist_print(struct node *head)
 {
-    return;
+    printf("[empty]");
 }
 
 void llist_free(struct node **head)
@@ -27,7 +29,7 @@ void llist_free(struct node **head)
 
 struct node *node_alloc(int value)
 {
-    return;
+    return NULL;
 }
 
 void node_free(struct node *n)
@@ -37,5 +39,14 @@ void node_free(struct node *n)
 
 int main(int argc, char const *argv[])
 {
+    // command line parser
+    // node_alloc()
+    // node_free()
+    // llist_print()
+    // llist_insert_head()
+    // ...
+
+    struct node *head;
+
     return 0;
 }
