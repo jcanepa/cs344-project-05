@@ -28,7 +28,6 @@ void llist_insert_tail(struct node **head, struct node *n)
         return;
     }
 
-    // parse the structure
     struct node *node = (*head);
     while (node->next != NULL)
         node = node->next;
@@ -90,7 +89,6 @@ int main(int argc, char const *argv[])
         else if (strcmp(*arg, "it") == 0)
         {
             // insert following arg at list tail
-            // TODO: NOT WORKING
             int value = atoi(*(arg + 1));
             llist_insert_tail(
                 &head, node_alloc(value));
