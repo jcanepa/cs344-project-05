@@ -47,32 +47,36 @@ void llist_print(struct node *head)
     struct node *node = head;
     while (node != NULL)
     {
-        printf("%d ", node->value);
-        printf((node->next != NULL) ? "-> " : "\n");
+        printf("%d", node->value);
+        printf((node->next != NULL) ? " -> " : "\n");
         node = node->next;
     }
 }
 
 void llist_free(struct node **head)
 {
+    struct node *node = (*head);
+    struct node *next;
+
     if (head == NULL)
         return;
 
-    struct node *node = (*head);
-    if (node->next != NULL)
+    while (node->next != NULL)
     {
-        (*head) = node->next;
+        next = node->next;
+        // (*head) = node->next;
+        // node_free(node);
         free(node);
+        node = next;
     }
-
     // free(node);
-    head = NULL;
+    *head = NULL;
     return;
 }
 
 void node_free(struct node *n)
 {
-    return;
+    free(n);
 }
 
 struct node *node_alloc(int value)
