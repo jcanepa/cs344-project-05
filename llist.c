@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <assert.h>
 
 void llist_insert_head(struct node **head, struct node *n)
 {
@@ -55,16 +56,16 @@ void llist_print(struct node *head)
 
 void llist_free(struct node **head)
 {
-    struct node *node = (*head);
-    struct node *next;
-
     if (head == NULL)
         return;
 
-    while (node->next != NULL)
+    struct node *node = (*head);
+    struct node *next;
+
+    while (node != NULL)
     {
         next = node->next;
-        free(node);
+        node_free(node);
         node = next;
     }
 
@@ -91,25 +92,26 @@ int main(int argc, char const *argv[])
 {
     struct node *head = NULL;
 
+    // for each user provided argument, parse
     for (const char **arg = argv + 1; *arg != argv[argc]; arg++)
     {
         if (strcmp(*arg, "ih") == 0)
         {
-            // insert following arg at list head
+            // insert following arg at head of list
             int value = atoi(*(arg + 1));
             llist_insert_head(
                 &head, node_alloc(value));
         }
         else if (strcmp(*arg, "it") == 0)
         {
-            // insert following arg at list tail
+            // insert following arg at tail of list
             int value = atoi(*(arg + 1));
             llist_insert_tail(
                 &head, node_alloc(value));
         }
         else if (strcmp(*arg, "dh") == 0)
         {
-            // delete node from list head; do nothing if list is empty
+            // delete node from head of list; do nothing if list is empty
             if (head == NULL)
                 continue;
             llist_delete_head(&head);
