@@ -47,13 +47,26 @@ void llist_print(struct node *head)
     struct node *node = head;
     while (node != NULL)
     {
-        printf("%d -> ", node->value);
+        printf("%d ", node->value);
+        printf((node->next != NULL) ? "-> " : "\n");
         node = node->next;
     }
 }
 
 void llist_free(struct node **head)
 {
+    if (head == NULL)
+        return;
+
+    struct node *node = (*head);
+    if (node->next != NULL)
+    {
+        (*head) = node->next;
+        free(node);
+    }
+
+    // free(node);
+    head = NULL;
     return;
 }
 
@@ -103,7 +116,6 @@ int main(int argc, char const *argv[])
         else if (strcmp(*arg, "f") == 0)
         {
             // free the entire list
-            printf("%s frees the list (TODO)\n", *arg);
             llist_free(&head);
         }
         else if (strcmp(*arg, "p") == 0)
