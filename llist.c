@@ -9,15 +9,33 @@ void llist_insert_head(struct node **head, struct node *n)
     (*head) = n;
 }
 
-// struct node *llist_delete_head(struct node **head)
-// {
-//     return NULL;
-// }
+struct node *llist_delete_head(struct node **head)
+{
+    if (*head == NULL)
+        return NULL;
 
-// void llist_insert_tail(struct node **head, struct node *n)
-// {
-//     return;
-// }
+    // remove head node and return its pointer
+    struct node *n = (*head);
+    (*head) = n->next;
+    return n;
+}
+
+void llist_insert_tail(struct node **head, struct node *n)
+{
+    if (*head == NULL)
+    {
+        (*head) = n;
+        return;
+    }
+
+    // parse the structure
+    struct node *node = (*head);
+    while (node->next != NULL)
+        node = node->next;
+
+    node->next = n;
+    return;
+}
 
 void llist_print(struct node *head)
 {
@@ -35,10 +53,15 @@ void llist_print(struct node *head)
     }
 }
 
-// void llist_free(struct node **head)
-// {
-//     return;
-// }
+void llist_free(struct node **head)
+{
+    return;
+}
+
+void node_free(struct node *n)
+{
+    return;
+}
 
 struct node *node_alloc(int value)
 {
@@ -51,49 +74,45 @@ struct node *node_alloc(int value)
     return n;
 }
 
-// void node_free(struct node *n)
-// {
-//     return;
-// }
-
 int main(int argc, char const *argv[])
 {
     struct node *head = NULL;
 
-    // parse command line
     for (const char **arg = argv + 1; *arg != argv[argc]; arg++)
     {
         if (strcmp(*arg, "ih") == 0)
         {
-            // insert the next number on the command line at the head of the list
+            // insert following arg at list head
             int value = atoi(*(arg + 1));
-            llist_insert_head(&head, node_alloc(value));
+            llist_insert_head(
+                &head, node_alloc(value));
         }
         else if (strcmp(*arg, "it") == 0)
         {
-            // insert the next number on the command line at the tail of the list
-            printf("%s inserts %s to tail of the list (TODO)\n", *arg, *(arg + 1));
+            // insert following arg at list tail
+            // TODO: NOT WORKING
+            int value = atoi(*(arg + 1));
+            llist_insert_tail(
+                &head, node_alloc(value));
         }
         else if (strcmp(*arg, "dh") == 0)
         {
-            // delete the node from the head of the list; does nothing if the list is empty
+            // delete node from list head; do nothing if list is empty
             if (head == NULL)
                 continue;
-            printf("%s deletes head node (TODO)\n", *arg);
+            llist_delete_head(&head);
         }
         else if (strcmp(*arg, "f") == 0)
         {
             // free the entire list
             printf("%s frees the list (TODO)\n", *arg);
-            // node_free()
+            llist_free(&head);
         }
         else if (strcmp(*arg, "p") == 0)
         {
-            // print the list to standard output
-            // printf("%s prints the list\n", *arg);
+            // print list to standard output
             llist_print(head);
         }
     }
-
     return 0;
 }
