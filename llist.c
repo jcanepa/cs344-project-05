@@ -64,14 +64,11 @@ void llist_free(struct node **head)
     while (node->next != NULL)
     {
         next = node->next;
-        // (*head) = node->next;
-        // node_free(node);
         free(node);
         node = next;
     }
-    // free(node);
+
     *head = NULL;
-    return;
 }
 
 void node_free(struct node *n)
