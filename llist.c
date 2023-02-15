@@ -81,7 +81,10 @@ struct node *node_alloc(int value)
 {
     struct node *n = (struct node *)malloc(sizeof(struct node));
     if (NULL == n)
+    {
         perror("malloc");
+        return NULL;
+    }
 
     n->value = value;
     n->next = NULL;
